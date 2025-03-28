@@ -1,14 +1,12 @@
-import { useState } from "react";
+import { useState } from "react"
 
-const ChartTab: React.FC = () => {
-  const [selected, setSelected] = useState<
-    "optionOne" | "optionTwo" | "optionThree"
-  >("optionOne");
+const ChartTab = () => {
+  const [selected, setSelected] = useState("optionOne")
 
-  const getButtonClass = (option: "optionOne" | "optionTwo" | "optionThree") =>
+  const getButtonClass = option =>
     selected === option
       ? "shadow-theme-xs text-gray-900 dark:text-white bg-white dark:bg-gray-800"
-      : "text-gray-500 dark:text-gray-400";
+      : "text-gray-500 dark:text-gray-400"
 
   return (
     <div className="flex items-center gap-0.5 rounded-lg bg-gray-100 p-0.5 dark:bg-gray-900">
@@ -39,7 +37,7 @@ const ChartTab: React.FC = () => {
         Annually
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default ChartTab;
+export default ChartTab

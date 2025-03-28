@@ -1,16 +1,15 @@
-import { SidebarProvider, useSidebar } from "../context/SidebarContext";
-import { Outlet } from "react-router";
-import AppHeader from "./AppHeader";
-import Backdrop from "./Backdrop";
-import AppSidebar from "./AppSidebar";
+import { SidebarProvider, useSidebar } from "../context/SidebarContext"
+import { Outlet } from "react-router"
+import AppHeader from "./AppHeader"
+import Backdrop from "./Backdrop"
+import AppSidebar from "./AppSidebar"
 
 const LayoutContent = () => {
-  const { isExpanded, isHovered, isMobileOpen } = useSidebar();
+  const { isExpanded, isHovered, isMobileOpen } = useSidebar()
 
   return (
     <div className="min-h-screen xl:flex">
       <div>
-        <AppSidebar />
         <Backdrop />
       </div>
       <div
@@ -24,15 +23,16 @@ const LayoutContent = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const AppLayout = () => {
   return (
     <SidebarProvider>
       <LayoutContent />
+      <AppSidebar/>
     </SidebarProvider>
-  );
-};
+  )
+}
 
-export default AppLayout;
+export default AppLayout

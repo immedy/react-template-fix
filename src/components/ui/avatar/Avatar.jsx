@@ -1,10 +1,3 @@
-interface AvatarProps {
-  src: string; // URL of the avatar image
-  alt?: string; // Alt text for the avatar
-  size?: "xsmall" | "small" | "medium" | "large" | "xlarge" | "xxlarge"; // Avatar size
-  status?: "online" | "offline" | "busy" | "none"; // Status indicator
-}
-
 const sizeClasses = {
   xsmall: "h-6 w-6 max-w-6",
   small: "h-8 w-8 max-w-8",
@@ -29,14 +22,9 @@ const statusColorClasses = {
   busy: "bg-warning-500",
 };
 
-const Avatar: React.FC<AvatarProps> = ({
-  src,
-  alt = "User Avatar",
-  size = "medium",
-  status = "none",
-}) => {
+function Avatar({ src, alt = "User Avatar", size = "medium", status = "none" }) {
   return (
-    <div className={`relative  rounded-full ${sizeClasses[size]}`}>
+    <div className={`relative rounded-full ${sizeClasses[size]}`}>
       {/* Avatar Image */}
       <img src={src} alt={alt} className="object-cover rounded-full" />
 
@@ -50,6 +38,6 @@ const Avatar: React.FC<AvatarProps> = ({
       )}
     </div>
   );
-};
+}
 
 export default Avatar;

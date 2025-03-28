@@ -1,11 +1,11 @@
-import { useState } from "react";
-import ComponentCard from "../../common/ComponentCard";
-import Checkbox from "../input/Checkbox";
+import { useState } from "react"
+import ComponentCard from "../../common/ComponentCard"
+import Checkbox from "../input/Checkbox"
 
 export default function CheckboxComponents() {
-  const [isChecked, setIsChecked] = useState(false);
-  const [isCheckedTwo, setIsCheckedTwo] = useState(true);
-  const [isCheckedDisabled, setIsCheckedDisabled] = useState(false);
+  const [isChecked, setIsChecked] = useState(false)
+  const [isCheckedTwo, setIsCheckedTwo] = useState(true)
+  const [isCheckedDisabled, setIsCheckedDisabled] = useState(false)
   return (
     <ComponentCard title="Checkbox">
       <div className="flex items-center gap-4">
@@ -32,5 +32,5 @@ export default function CheckboxComponents() {
         </div>
       </div>
     </ComponentCard>
-  );
+  )
 }
