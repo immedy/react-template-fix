@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { DropdownItem } from "../ui/dropdown/DropdownItem";
 import { Dropdown } from "../ui/dropdown/Dropdown";
-import { Link } from "react-router-dom"; // Perbaikan dari "react-router" ke "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"; // Pastikan pakai "react-router-dom"
 
 export default function UserDropdown() {
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const navigate = useNavigate();
 
   function toggleDropdown() {
     setIsOpen(!isOpen);
@@ -14,8 +16,26 @@ export default function UserDropdown() {
     setIsOpen(false);
   }
 
+  function handleLogout() {
+    localStorage.removeItem("token"); // Hapus token atau sesi user
+    navigate("/login"); // Redirect ke halaman login
+  }
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        closeDropdown();
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="relative">
+    <div className="relative" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
         className="flex items-center text-gray-700 dropdown-toggle dark:text-gray-400"
@@ -62,7 +82,7 @@ export default function UserDropdown() {
           <li>
             <DropdownItem
               onItemClick={closeDropdown}
-              tag="a"
+              tag={Link}
               to="/profile"
               className="flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
             >
@@ -72,7 +92,7 @@ export default function UserDropdown() {
           <li>
             <DropdownItem
               onItemClick={closeDropdown}
-              tag="a"
+              tag={Link}
               to="/settings"
               className="flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
             >
@@ -80,14 +100,12 @@ export default function UserDropdown() {
             </DropdownItem>
           </li>
           <li>
-            <DropdownItem
-              onItemClick={() => alert("Logging out...")}
-              tag="a"
-              to="/logout"
-              className="flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
+            <button
+              onClick={handleLogout}
+              className="w-full text-left flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
             >
               Logout
-            </DropdownItem>
+            </button>
           </li>
         </ul>
       </Dropdown>
