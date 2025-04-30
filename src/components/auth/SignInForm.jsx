@@ -1,12 +1,37 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { ChevronLeftIcon, EyeCloseIcon, EyeIcon } from "../../icons";
 import Label from "../form/Label";
 import Input from "../form/input/InputField";
 import Button from "../ui/button/Button";
+import useAuth from "../../hooks/useAuth";
 
 export default function SignInForm() {
+  const { login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const [data, setData] = useState({
+    username: "",
+    password: "",
+  });
+
+  const handleUsername = (e) => {
+    setData({ ...data, username: e.target.value });
+  };
+
+  const handlePassword = (e) => {
+    setData({ ...data, password: e.target.value });
+  };
+
+  const handleFormLogin = async (e) => {
+    e.preventDefault();
+    try {
+      await login(data.username, data.password);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="flex flex-col flex-1">
       <div className="flex flex-col justify-center flex-1 w-full max-w-md mx-auto">
@@ -20,13 +45,13 @@ export default function SignInForm() {
             </p>
           </div>
           <div>
-            <form>
+            <form onSubmit={handleFormLogin}>
               <div className="space-y-6">
                 <div>
                   <Label>
                     Username <span className="text-error-500">*</span>{" "}
                   </Label>
-                  <Input placeholder="Username" />
+                  <Input placeholder="Username" onChange={handleUsername} />
                 </div>
                 <div>
                   <Label>
@@ -36,6 +61,7 @@ export default function SignInForm() {
                     <Input
                       type={showPassword ? "text" : "password"}
                       placeholder="Enter your password"
+                      onChange={handlePassword}
                     />
                     <span
                       onClick={() => setShowPassword(!showPassword)}
@@ -50,7 +76,7 @@ export default function SignInForm() {
                   </div>
                 </div>
                 <div>
-                  <Button className="w-full" size="sm">
+                  <Button type="submit" className="w-full" size="sm">
                     Masuk
                   </Button>
                 </div>
