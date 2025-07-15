@@ -1,29 +1,32 @@
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "../../../components/ui/table";
 import { pasienService } from "../../../services/patient/patient.service";
-import Badge from "../../../components/ui/badge/Badge"
+
 import ComponentCard from "../../../components/common/ComponentCard";
-import { useState, useRef } from "react";
-import PaginationTable from "../../../components/tables/PaginationTable/PaginationTable";
-import { useDataPatient } from "../../../hooks/useDataPatient";
+import { useState, useEffect} from "react";
+
 import useAuth from "../../../hooks/useAuth";
 
-// Define the table data using the interface
-// const inputRef = useRef(null);
-const tableData = [
-    {
-        id: 1,
-        nama: "Lindsay",
-        norm: "000021",
-        jenis_kelamin: "Laki-Laki",
-        tempat_lahir: "Kota Bangun",
-        tanggal_lahir: "1 Juni 1992",
-        alamat: "Jalan Kudunggaa gg 4 rt 10 rw 15",
-    },
-]
 
 export default function Pasien() {
-    // const { patient, getPatient, currentPage, setState, search } = useDataPatient();
-    // const { isAuthenticated } = useAuth();
+    const { token } = useAuth(); // pastikan ini dapat token
+    const [dataPasien, setDataPasien] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        if (!token) return;
+        const fetchData = async () => {
+            setLoading(true);
+            const result = await pasienService(token, 1, "");
+            if (result.success) {
+                setDataPasien(result.data.Pasien.data); // sesuai hasil Postman
+            } else {
+                setError(result.error);
+            }
+            setLoading(false);
+        };
+        fetchData();
+    }, [token]);
     return (
         <>
             <div className="space-y-6">
@@ -63,11 +66,6 @@ export default function Pasien() {
                     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
                         <div className="max-w-full overflow-x-auto">
                             <Table>
-                                <PaginationTable patient={patient}
-                                    getPatient={getPatient}
-                                    setState={setState}
-                                    token={token}
-                                    search={search}>
                                     {/* Table Header */}
                                     <TableHeader className="border-b border-gray-100 dark:border-white/[0.05]">
                                         <TableRow>
@@ -106,7 +104,7 @@ export default function Pasien() {
 
                                     {/* Table Body */}
                                     <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-                                        {tableData.map(Pasien => (
+                                        {dataPasien.map(Pasien => (
                                             <TableRow key={Pasien.id}>
                                                 <TableCell className="px-5 py-4 sm:px-6 text-start">
                                                     <div className="flex items-center gap-3">
@@ -153,7 +151,6 @@ export default function Pasien() {
                                             </TableRow>
                                         ))}
                                     </TableBody>
-                                </PaginationTable>
                             </Table>
                         </div>
                     </div>
