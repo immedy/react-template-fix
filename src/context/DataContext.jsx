@@ -1,5 +1,5 @@
-import React, { createContext, useEffect, useState} from "react";
-import { pasienService } from "../services/patient/patient.service";
+import React, { createContext, useEffect, useState } from "react";
+import { patientService } from "../services/patient/patient.service";
 import useAuth from "../hooks/useAuth";
 
 const initialState = {
@@ -20,7 +20,7 @@ export const DataProvider = ({ children }) => {
   const getPatient = async (token, page, search) => {
     try {
       setState({ ...state, isLoading: true });
-      const { data } = await pasienService(token, page, search); // get data from api
+      const { data } = await patientService(token, page, search); // get data from api
       setState({ ...state, patient: data, isLoading: false, error: null });
     } catch (error) {
       setState({ ...state, error: error.message });

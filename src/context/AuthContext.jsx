@@ -1,4 +1,4 @@
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useEffect, useReducer, useMemo } from "react";
 import { getMeService, loginService } from "../services/auth/auth.service";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
@@ -9,117 +9,121 @@ const initialState = {
   isAuthenticated: false,
 };
 
-// check token valid
+// Cek token valid (belum expired)
 const isValidToken = (accessToken) => {
   if (!accessToken) return false;
   try {
-    const decodedToken = jwtDecode(accessToken);
-    const currentTime = Date.now() / 1000;
-    return decodedToken.exp > currentTime; // valid if token not expired
-  } catch (error) {
-    console.log(error);
+    const decoded = jwtDecode(accessToken);
+    return decoded.exp > Date.now() / 1000;
+  } catch (err) {
+    console.error("Token decode error:", err);
     return false;
   }
 };
 
-// save token and delete token
+// Set atau hapus token dari localStorage & axios default
 const setSession = (accessToken) => {
   if (accessToken) {
-    localStorage.setItem("accessToken", accessToken); //set token to local storage
+    localStorage.setItem("accessToken", accessToken);
     axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
   } else {
-    localStorage.removeItem("accessToken"); // remove token from local storage
+    localStorage.removeItem("accessToken");
     delete axios.defaults.headers.common.Authorization;
   }
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "INIT": {
-      const { isAuthenticated, user } = action.payload;
-      return { ...state, user, isAuthenticated, isInitialized: true };
-    }
-    case "LOGIN": {
-      const { user } = action.payload;
-      return { ...state, user, isAuthenticated: true };
-    }
-    case "LOGOUT": {
-      return { ...state, isAuthenticated: false, user: null };
-    }
-    case "REGISTER": {
-      const { user } = action.payload;
-      return { ...state, isAuthenticated: true, user };
-    }
-    default: {
+    case "INIT":
+      return {
+        ...state,
+        isAuthenticated: action.payload.isAuthenticated,
+        user: action.payload.user,
+        isInitialized: true,
+      };
+    case "LOGIN":
+      return {
+        ...state,
+        isAuthenticated: true,
+        user: action.payload.user,
+      };
+    case "LOGOUT":
+      return {
+        ...state,
+        isAuthenticated: false,
+        user: null,
+      };
+    default:
       return state;
-    }
   }
 };
 
 const AuthContext = createContext({
   ...initialState,
   method: "JWT",
+  token: null,
+  login: () => Promise.resolve(),
+  logout: () => {},
 });
 
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // function login
+  // Function untuk login
   const login = async (username, password) => {
-    const { data } = await loginService(username, password); // excecute api login and get data
-    const { token } = data; // get data authentication from data
+    const { data } = await loginService(username, password);
+    const { token } = data;
 
-    setSession(token); // set token from authentication to setSession
+    setSession(token);
 
-    const dataUser = await getMeService(token); // get data user from data
-    const user = dataUser.data;
+    const userRes = await getMeService(token);
+    const user = userRes.data;
 
-    dispatch({ type: "LOGIN", payload: { user } }); //send data user to reducer type login
+    dispatch({ type: "LOGIN", payload: { user } });
   };
 
+  // Function untuk logout
   const logout = () => {
     setSession(null);
     dispatch({ type: "LOGOUT" });
   };
 
+  // Init saat pertama kali load
   useEffect(() => {
-    (async () => {
+    const initialize = async () => {
       try {
-        const accessToken = window.localStorage.getItem("accessToken"); // get token from local storage
-        //check token valid
+        const accessToken = localStorage.getItem("accessToken");
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
-          const response = await getMeService(accessToken); //get data user login
-          const user = response.data;
+          const userRes = await getMeService(accessToken);
+          const user = userRes.data;
 
-          dispatch({
-            type: "INIT",
-            payload: { isAuthenticated: true, user },
-          });
+          dispatch({ type: "INIT", payload: { isAuthenticated: true, user } });
         } else {
-          dispatch({
-            type: "INIT",
-            payload: { isAuthenticated: false, user: null },
-          });
+          dispatch({ type: "INIT", payload: { isAuthenticated: false, user: null } });
         }
       } catch (err) {
-        console.log(err);
-
-        dispatch({
-          type: "INIT",
-          payload: { isAuthenticated: false, user: null },
-        });
+        console.error("Initialization error:", err);
+        dispatch({ type: "INIT", payload: { isAuthenticated: false, user: null } });
       }
-    })();
+    };
+    initialize();
   }, []);
 
-  if (!state.isInitialized) return "Loading ...";
-
-  return (
-    <AuthContext.Provider value={{ ...state, method: "JWT", login, logout }}>
-      {children}
-    </AuthContext.Provider>
+  const contextValue = useMemo(
+    () => ({
+      ...state,
+      method: "JWT",
+      login,
+      logout,
+      token: localStorage.getItem("accessToken"), // ✅ token diinject ke context
+    }),
+    [state]
   );
+
+  if (!state.isInitialized) return "Loading...";
+
+  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 };
 
 export default AuthContext;

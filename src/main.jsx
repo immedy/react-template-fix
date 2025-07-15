@@ -7,6 +7,7 @@ import App from "./App";
 import { AppWrapper } from "./components/common/PageMeta";
 import { ThemeProvider } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
+import { DataProvider } from "./context/DataContext";
 
 const rootElement = document.getElementById("root");
 if (rootElement) {
@@ -14,9 +15,11 @@ if (rootElement) {
     <StrictMode>
       <ThemeProvider>
         <AuthProvider>
-          <AppWrapper>
-            <App />
-          </AppWrapper>
+          <DataProvider>
+            <AppWrapper>
+              <App />
+            </AppWrapper>
+          </DataProvider>
         </AuthProvider>
       </ThemeProvider>
     </StrictMode>
