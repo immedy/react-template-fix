@@ -16,13 +16,13 @@ export default function AuthLayout({ children }) {
               <Link to="/" className="block mb-4">
                 <img
                   width={231}
-                  height={48}
-                  src="/images/logo/auth-logo.svg"
+                  height={28}
+                  src="images/logo/logo-rs.png"
                   alt="Logo"
                 />
               </Link>
-              <p className="text-center text-gray-400 dark:text-white/60">
-                Free and Open-Source Tailwind CSS Admin Dashboard Template
+              <p className="text-center text-gray-400 dark:text-white/600">
+                RSUD DAYAKU RAJA
               </p>
             </div>
           </div>
