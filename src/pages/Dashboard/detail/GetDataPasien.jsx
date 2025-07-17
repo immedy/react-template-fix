@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
+import Select from 'react-select'
 import { Modal } from "../../../components/ui/modal"; // Asumsi ini adalah komponen Modal Anda
 import Button from "../../../components/ui/button/Button";
 import Input from "../../../components/form/input/InputField";
 import Label from "../../../components/form/Label";
 import DatePicker from "../../../components/form/date-picker";
-import Select from "../../../components/form/Select";
 
 const options = [
     { value: "marketing", label: "Marketing" },
@@ -84,30 +84,15 @@ export default function GetDataPasien({ isOpen, onClose, handleSave, selectedPat
     
                                     <div>
                                         <Label>Jaminan</Label>
-                                        <Select
-                                            options={options}
-                                            placeholder="Select an option"
-                                            onChange={handleSelectChange}
-                                            className="dark:bg-dark-900"
-                                            value={options.find(option => option.value === formData.jaminan)} 
-                                            isDisabled
-                                        />
+                                        <Select options={options} placeholder="Select an option" className="dark:bg-dark-900"/>
                                     </div>
                                     <div>
                                         <Label>DPJP</Label>
-                                        <Input
-                                            type="text"
-                                            value={formData.dpjp}
-                                            readOnly
-                                        />
+                                        <Select options={options} placeholder="Select an option" className="dark:bg-dark-900"/>
                                     </div>
                                     <div className="col-span-2">
                                         <Label>Jenis Pelayanan</Label>
-                                        <Input
-                                            type="text"
-                                            value={formData.jenisPelayanan}
-                                            readOnly
-                                        />
+                                        <Select options={options} placeholder="Select an option" className="dark:bg-dark-900"/>
                                     </div>
                                 </div>
                             </div>
@@ -141,34 +126,20 @@ export default function GetDataPasien({ isOpen, onClose, handleSave, selectedPat
                                     </div>
                                     <div className="col-span-2 lg:col-span-1">
                                         <Label>Status Pasien</Label>
-                                        <Input
-                                            type="text"
-                                            value={formData.statusPasien}
-                                            readOnly
-                                        />
+                                        <Select options={options} placeholder="Select an option" className="dark:bg-dark-900"/>
                                     </div>
                                     <div className="col-span-2 lg:col-span-1">
                                         <Label>Asal/Tujuan Ruangan</Label>
-                                        <Input
-                                            type="text"
-                                            value={formData.asalTujuanRuangan}
-                                            readOnly
-                                        />
+                                        <Select options={options} placeholder="Select an option" className="dark:bg-dark-900"/>
                                     </div>
                                     <div className="col-span-2 lg:col-span-1">
                                         <Label>Pasien Keluar Mati</Label>
-                                        <Input
-                                            type="text"
-                                            value={formData.pasienKeluarMati}
-                                            readOnly
-                                        />
+                                        <Select options={options} placeholder="Select an option" className="dark:bg-dark-900"/>
                                     </div>
                                     <div className="col-span-2 lg:col-span-1">
                                         <Label>Keterangan</Label>
                                         <Input
                                             type="text"
-                                            value={formData.keterangan}
-                                            readOnly
                                         />
                                     </div>
                                 </div>
