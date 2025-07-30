@@ -9,6 +9,8 @@ import NotFound from "./pages/OtherPage/NotFound";
 
 import LineChart from "./pages/Charts/LineChart";
 import BarChart from "./pages/Charts/BarChart";
+import RefAmbulan from "./pages/Reference/RefAmbulan";
+import RefJenazah from "./pages/Reference/RefJenazah";
 
 import AppLayout from "./layout/AppLayout";
 import { ScrollToTop } from "./components/common/ScrollToTop";
@@ -47,6 +49,8 @@ export default function App() {
             <Route index path="/dashboard/pasien" element={<Pasien/>} />
             <Route path="/line-chart" element={<LineChart />} />
             <Route path="/bar-chart" element={<BarChart />} />
+            <Route path="/referensi-ambulan" element={<RefAmbulan/>} />
+            <Route path="/referensi-jenazah" element={<RefJenazah/>}/>
           </Route>
 
           {/* Fallback Route */}

@@ -13,7 +13,8 @@ import {
   PieChartIcon,
   PlugInIcon,
   TableIcon,
-  UserCircleIcon
+  UserCircleIcon,
+  DocsIcon,
 } from "../icons"
 import { useSidebar } from "../context/SidebarContext"
 
@@ -24,15 +25,24 @@ const navItems = [
     name: "Dashboard",
     path: "/"
   },
+  
 ]
 
 const othersItems = [
   {
-    icon: <PieChartIcon />,
+    icon: <DocsIcon />,
     name: "Laporan",
     subItems: [
-      { name: "Line Chart", path: "/line-chart", pro: false },
-      { name: "Bar Chart", path: "/bar-chart", pro: false }
+      { name: "Laporan Ambulan", path: "/line-chart", pro: false },
+      { name: "Laporan Jenazah", path: "/bar-chart", pro: false }
+    ]
+  },
+  {
+    icon: <ListIcon />,
+    name: "Referensi",
+    subItems: [
+      { name: "Tujuan Ambulan", path: "/referensi-ambulan", pro: false },
+      { name: "Tindakan Jenazah", path: "/referensi-jenazah", pro: false }
     ]
   },
   

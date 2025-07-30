@@ -1,7 +1,6 @@
 import React from "react";
 import GridShape from "../../components/common/GridShape";
 import { Link } from "react-router-dom"; // Gantilah "react-router" dengan "react-router-dom"
-import ThemeTogglerTwo from "../../components/common/ThemeTogglerTwo";
 
 export default function AuthLayout({ children }) {
   return (
@@ -21,15 +20,13 @@ export default function AuthLayout({ children }) {
                   alt="Logo"
                 />
               </Link>
-              <p className="text-center text-gray-400 dark:text-white/600">
-                RSUD DAYAKU RAJA
-              </p>
+              <h1 className="text-center text-gray-400 dark:text-gray-900 text-2xl font-bold">
+                RUMAH SAKIT UMUM DAERAH DAYAKU RAJA
+              </h1>
             </div>
           </div>
         </div>
-        <div className="fixed z-50 hidden bottom-6 right-6 sm:block">
-          <ThemeTogglerTwo />
-        </div>
+       
       </div>
     </div>
   );
