@@ -5,7 +5,7 @@ import Select from "react-select";
 // Anda mungkin perlu membuat file CSS ini atau menambahkan variabel CSS ke global style Anda
 // import "./select-styles.css";
 
-const Select = ({
+const SelectField = ({
   options,
   placeholder = "Select an option",
   onChange,
@@ -67,6 +67,8 @@ const Select = ({
         backgroundColor: backgroundColor,
         transition: 'all 0.1s ease-in-out', // Untuk transisi focus
         cursor: state.isDisabled ? 'not-allowed' : 'default',
+        fontSize: '0.875rem',
+        lineHeight: '1.25rem',
 
         '&:hover': {
           borderColor: state.isFocused ? borderColor : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'var(--color-gray-700)' : 'var(--color-gray-300)'), // Hover border
@@ -179,4 +181,4 @@ const Select = ({
   );
 };
 
-export default Select;
+export default SelectField;

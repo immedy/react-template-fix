@@ -8,6 +8,8 @@ import { AppWrapper } from "./components/common/PageMeta";
 import { ThemeProvider } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
 import { DataProvider } from "./context/DataContext";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const rootElement = document.getElementById("root");
 if (rootElement) {
@@ -22,6 +24,17 @@ if (rootElement) {
           </DataProvider>
         </AuthProvider>
       </ThemeProvider>
+      <ToastContainer
+        position="bottom-center" // Posisi default notifikasi
+        autoClose={5000}    // Notifikasi akan otomatis tertutup setelah 5 detik
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </StrictMode>
   );
 } else {

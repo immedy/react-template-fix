@@ -5,6 +5,7 @@ import Label from "../form/Label";
 import Input from "../form/input/InputField";
 import Button from "../ui/button/Button";
 import useAuth from "../../hooks/useAuth";
+import { toast } from 'react-toastify';
 
 export default function SignInForm() {
   const { login } = useAuth();
@@ -27,9 +28,19 @@ export default function SignInForm() {
     e.preventDefault();
     try {
       await login(data.username, data.password);
+      // Notifikasi sukses setelah login berhasil
+      toast.success("Login Berhasil!"); 
       navigate("/");
     } catch (error) {
-      console.log(error);
+      console.log(error); 
+      let errorMessage = "Username atau password salah.";
+      if (error.response && error.response.data && error.response.data.message) {
+        errorMessage = error.response.data.message;
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      // Notifikasi error jika login gagal
+      toast.error(`Login Gagal: ${errorMessage}`);
     }
   };
   return (

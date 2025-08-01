@@ -10,6 +10,7 @@ import NotFound from "./pages/OtherPage/NotFound";
 import LineChart from "./pages/Charts/LineChart";
 import BarChart from "./pages/Charts/BarChart";
 import RefAmbulan from "./pages/Reference/RefAmbulan";
+import AddRefAmbulan from "./pages/Reference/Detail/AddRefAmbulan";
 import RefJenazah from "./pages/Reference/RefJenazah";
 
 import AppLayout from "./layout/AppLayout";
@@ -50,6 +51,8 @@ export default function App() {
             <Route path="/line-chart" element={<LineChart />} />
             <Route path="/bar-chart" element={<BarChart />} />
             <Route path="/referensi-ambulan" element={<RefAmbulan/>} />
+            <Route path="/referensi-ambulan/addreferensiambulan" element={<AddRefAmbulan/>} />
+
             <Route path="/referensi-jenazah" element={<RefJenazah/>}/>
           </Route>
 
