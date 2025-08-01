@@ -18,14 +18,12 @@ import {
 } from "../icons"
 import { useSidebar } from "../context/SidebarContext"
 
-
 const navItems = [
   {
     icon: <GridIcon />,
     name: "Dashboard",
     path: "/"
   },
-  
 ]
 
 const othersItems = [
@@ -45,7 +43,6 @@ const othersItems = [
       { name: "Tindakan Jenazah", path: "/referensi-jenazah", pro: false }
     ]
   },
-  
 ]
 
 const AppSidebar = () => {
@@ -56,10 +53,18 @@ const AppSidebar = () => {
   const [subMenuHeight, setSubMenuHeight] = useState({})
   const subMenuRefs = useRef({})
 
-  // const isActive = (path: string) => location.pathname === path;
-  const isActive = useCallback(path => location.pathname === path, [
-    location.pathname
-  ])
+  // --- LOGIKA BARU DI SINI ---
+  const isActive = useCallback(path => {
+    const currentPath = location.pathname;
+
+    // Logika 1: Jika path menu adalah '/', aktif hanya saat path saat ini persis '/'
+    if (path === '/') {
+      return currentPath === path;
+    }
+
+    // Logika 2: Untuk semua path menu lainnya, aktif jika path saat ini dimulai dengan path menu
+    return currentPath.startsWith(path);
+  }, [location.pathname]);
 
   useEffect(() => {
     let submenuMatched = false
@@ -281,7 +286,7 @@ const AppSidebar = () => {
           )}
         </Link>
       </div>
-      <div className="flex flex-col overflow-y-auto duration-300 ease-linear no-scrollbar">
+      <div className="flex flex-col overflow-y-auto duration-300 ease-in-out no-scrollbar">
         <nav className="mb-6">
           <div className="flex flex-col gap-4">
             <div>

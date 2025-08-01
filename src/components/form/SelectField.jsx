@@ -74,7 +74,7 @@ const SelectField = ({
           borderColor: state.isFocused ? borderColor : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'var(--color-gray-700)' : 'var(--color-gray-300)'), // Hover border
         },
       };
-    }, // Ganti "->" dengan "," di sini
+    },
     // Styling untuk teks placeholder
     placeholder: (baseStyles) => ({
       ...baseStyles,
@@ -151,6 +151,8 @@ const SelectField = ({
       ...baseStyles,
       backgroundColor: isSelected ? 'var(--color-brand-500)' : isFocused ? 'var(--color-blue-50)' : 'transparent',
       color: isSelected ? 'var(--color-white)' : 'var(--color-gray-700)',
+      fontSize: '0.875rem',
+      lineHeight: '1.25rem',
       '&:active': { // Saat diklik
         backgroundColor: isSelected ? 'var(--color-brand-600)' : 'var(--color-blue-100)',
       },

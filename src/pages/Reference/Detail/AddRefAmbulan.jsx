@@ -5,6 +5,7 @@ import SelectField from "../../../components/form/SelectField"
 import Button from "../../../components/ui/button/Button";
 import DatePicker from "../../../components/form/date-picker";
 import { EyeCloseIcon, EyeIcon, TimeIcon } from "../../../icons";
+import { Link } from "react-router";
 
 
 export default function AddRefAmbulan() {
@@ -109,13 +110,14 @@ export default function AddRefAmbulan() {
                                             />
                                         </div>
                                     </div>
-                                    <div className="flex gap-3 ">
+                                    <div className="sm:col-span-2 flex gap-3 justify-end">
+                                        <Link to="/referensi-ambulan"
+                                         className="inline-flex items-center justify-center gap-2 rounded-lg transition  px-4 py-3 text-sm bg-white text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03] dark:hover:text-gray-300 ">
+                                            Kembali
+                                        </Link>
                                         <Button className="inline-flex items-center justify-center gap-2 rounded-lg transition  px-4 py-3 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300 ">
                                             Simpan
                                         </Button>
-                                        <button className="inline-flex items-center justify-center gap-2 rounded-lg transition  px-4 py-3 text-sm bg-white text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03] dark:hover:text-gray-300 ">
-                                            Kembali
-                                        </button>
                                     </div>
                                 </div>
                             </form>

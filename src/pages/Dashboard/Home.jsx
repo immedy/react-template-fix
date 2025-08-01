@@ -1,6 +1,7 @@
 
 import ComponentCard from "../../components/common/ComponentCard";
 import Dashboard from "./detail/Dashboard";
+import { Link } from "react-router";
 
 export default function Home() {
   return (
@@ -10,8 +11,8 @@ export default function Home() {
           <ComponentCard
             title="Dashboard"
             headerRight={
-              <button
-                onClick={() => window.location.href = "/dashboard/pasien"}
+              <Link to= "/dashboard/pasien"
+                
                 className="group relative shadow-theme-xs inline-flex h-9 w-9 items-center justify-center rounded-lg border border-gray-300 text-gray-500 hover:bg-blue-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-blue/[0.03] dark:hover:text-gray-200"
               >
                 <svg
@@ -32,7 +33,7 @@ export default function Home() {
                 >
                   Tambah
                 </span>
-              </button>
+              </Link>
             }>
             <Dashboard />
           </ComponentCard>

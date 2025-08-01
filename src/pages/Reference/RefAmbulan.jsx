@@ -1,4 +1,5 @@
 import ComponentCard from "../../components/common/ComponentCard";
+import { Link } from "react-router";
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "../../components/ui/table";
 
 export default function RefAmbulan() {
@@ -28,7 +29,7 @@ export default function RefAmbulan() {
                     </p>
                   </div>
                   <div>
-                    <button onClick={() => window.location.href = "/referensi-ambulan/addreferensiambulan"}                      
+                    <Link to="/referensi-ambulan/addreferensiambulan"
                       className="shadow-theme-xs flex w-full justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200"
                     >
                       <svg
@@ -42,9 +43,7 @@ export default function RefAmbulan() {
                         <path d="m.5 3 .04.87a2 2 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2m5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19q-.362.002-.683.12L1.5 2.98a1 1 0 0 1 1-.98z" />
                         <path d="M13.5 9a.5.5 0 0 1 .5.5V11h1.5a.5.5 0 1 1 0 1H14v1.5a.5.5 0 1 1-1 0V12h-1.5a.5.5 0 0 1 0-1H13V9.5a.5.5 0 0 1 .5-.5" />
                       </svg>
-
-
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
