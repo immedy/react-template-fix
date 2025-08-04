@@ -12,6 +12,7 @@ import BarChart from "./pages/Charts/BarChart";
 import RefAmbulan from "./pages/Reference/RefAmbulan";
 import AddRefAmbulan from "./pages/Reference/Detail/AddRefAmbulan";
 import RefJenazah from "./pages/Reference/RefJenazah";
+import AddRefJenazah from "./pages/Reference/Detail/AddRefJenazah";
 
 import AppLayout from "./layout/AppLayout";
 import { ScrollToTop } from "./components/common/ScrollToTop";
@@ -52,6 +53,7 @@ export default function App() {
             <Route path="/bar-chart" element={<BarChart />} />
             <Route path="/referensi-ambulan" element={<RefAmbulan/>} />
             <Route path="/referensi-ambulan/addreferensiambulan" element={<AddRefAmbulan/>} />
+            <Route path="/referensi-jenazah/addreferensijenazah" element={<AddRefJenazah/>}/>
 
             <Route path="/referensi-jenazah" element={<RefJenazah/>}/>
           </Route>

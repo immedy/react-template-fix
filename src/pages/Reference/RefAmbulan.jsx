@@ -8,27 +8,14 @@ export default function RefAmbulan() {
       <div className="grid grid-cols-12 gap-4 md:gap-6">
         <div className="col-span-12">
           <ComponentCard
-            title="Referensi Ambulan"
+            title="Tujuan Ambulan"
             headerRight={
               <div className="hidden h-11 items-center gap-0.5 rounded-lg bg-gray-100 p-0.5 lg:inline-flex dark:bg-gray-900">
                 <button className="text-theme-sm h-10 rounded-md px-3 py-2 font-medium hover:text-gray-900 dark:hover:text-white shadow-theme-xs text-gray-900 dark:text-white bg-white dark:bg-gray-800">Ambulan Jenazah Dalam Provinsi</button>
                 <button className="text-theme-sm h-10 rounded-md px-3 py-2 font-medium hover:text-gray-900 dark:hover:text-white text-gray-500 dark:text-gray-400">Ambulan Jenazah Luar Provinsi</button>
                 <button className="text-theme-sm h-10 rounded-md px-3 py-2 font-medium hover:text-gray-900 dark:hover:text-white text-gray-500 dark:text-gray-400">Ambulan Antar Pasien Dalam Provinsi</button>
                 <button className="text-theme-sm h-10 rounded-md px-3 py-2 font-medium hover:text-gray-900 dark:hover:text-white text-gray-500 dark:text-gray-400">Ambulan Antar Pasien luar Provinsi</button>
-              </div>
-            }>
-            <div className="rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
-              <div className="px-6">
-                <div className="flex flex-col justify-between gap-5 py-4 sm:flex-row sm:items-center">
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90">
-                      Invoices
-                    </h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Access all your previous invoices.
-                    </p>
-                  </div>
-                  <div>
+                   <div>
                     <Link to="/referensi-ambulan/addreferensiambulan"
                       className="shadow-theme-xs flex w-full justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200"
                     >
@@ -45,42 +32,47 @@ export default function RefAmbulan() {
                       </svg>
                     </Link>
                   </div>
+              </div>
+            }>
+            <div className="rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
+              <div className="px-6">
+                <div className="flex flex-col justify-between gap-5 py-4 sm:flex-row sm:items-center">
                 </div>
               </div>
               <div>
                 <div className="custom-scrollbar overflow-x-auto px-6">
-                  <table className="min-w-full">
-                    <thead>
-                      <tr className="border-y border-gray-200 dark:border-gray-800">
-                        <th className="px-6 py-3 text-left text-sm font-normal text-gray-500 dark:text-gray-400">
+                  <Table className="min-w-full">
+                    <TableHeader>
+                      <TableRow className="border-y border-gray-200 dark:border-gray-800">
+                        <TableCell className="px-6 py-3 text-left text-sm font-normal text-gray-500 dark:text-gray-400">
                           No
-                        </th>
-                        <th className="px-6 py-3 text-left text-sm font-normal text-gray-500 first:pl-0 dark:text-gray-400">
+                        </TableCell>
+                        <TableCell className="px-6 py-3 text-left text-sm font-normal text-gray-500 first:pl-0 dark:text-gray-400">
                           Tujuan
-                        </th>
-                        <th className="px-6 py-3 text-left text-sm font-normal text-gray-500 dark:text-gray-400">
+                        </TableCell>
+                        <TableCell className="px-6 py-3 text-left text-sm font-normal text-gray-500 dark:text-gray-400">
                           BBM
-                        </th>
-                        <th className="px-6 py-3 text-left text-sm font-normal text-gray-500 dark:text-gray-400">
+                        </TableCell>
+                        <TableCell className="px-6 py-3 text-left text-sm font-normal text-gray-500 dark:text-gray-400">
                           Penyebrangan
-                        </th>
-                        <th className="px-6 py-3 text-left text-sm font-normal text-gray-500 dark:text-gray-400">
+                        </TableCell>
+                        <TableCell className="px-6 py-3 text-left text-sm font-normal text-gray-500 dark:text-gray-400">
                           Uang Makan
-                        </th>
-                        <th className="px-6 py-3 text-left text-sm font-normal text-gray-500 dark:text-gray-400">
+                        </TableCell>
+                        <TableCell className="px-6 py-3 text-left text-sm font-normal text-gray-500 dark:text-gray-400">
                           Total Biaya
-                        </th>
-                        <th className="px-6 py-3 text-right text-sm font-normal text-gray-500 dark:text-gray-400">
+                        </TableCell>
+                        <TableCell className="px-6 py-3 text-right text-sm font-normal text-gray-500 dark:text-gray-400">
                           Action
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-200 dark:divide-gray-800">
-                      <tr>
-                        <td className="px-6 py-3 text-sm font-normal whitespace-nowrap text-gray-700 dark:text-gray-400">
+                        </TableCell>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody className="divide-y divide-gray-200 dark:divide-gray-800">
+                      <TableRow>
+                        <TableCell className="px-6 py-3 text-sm font-normal whitespace-nowrap text-gray-700 dark:text-gray-400">
                           1
-                        </td>
-                        <td className="px-6 py-3 text-left whitespace-nowrap first:pl-0">
+                    </TableCell>
+                        <TableCell className="px-6 py-3 text-left whitespace-nowrap first:pl-0">
                           <div className="flex items-center w-full gap-5">
                             <div className="truncate">
                               <p className="mb-0.5 truncate text-theme-sm font-medium text-gray-700 dark:text-gray-400">
@@ -92,22 +84,22 @@ export default function RefAmbulan() {
                             </div>
                           </div>
 
-                        </td>
-                        <td className="px-6 py-3 text-sm font-normal whitespace-nowrap text-gray-700 dark:text-gray-400">
+                    </TableCell>
+                        <TableCell className="px-6 py-3 text-sm font-normal whitespace-nowrap text-gray-700 dark:text-gray-400">
                           May 01, 2024
-                        </td>
-                        <td className="px-6 py-3 text-sm font-normal whitespace-nowrap text-gray-700 dark:text-gray-400">
+                    </TableCell>
+                        <TableCell className="px-6 py-3 text-sm font-normal whitespace-nowrap text-gray-700 dark:text-gray-400">
                           $120.00
-                        </td>
-                        <td className="px-6 py-3 text-sm font-normal whitespace-nowrap text-gray-700 dark:text-gray-400">
+                    </TableCell>
+                        <TableCell className="px-6 py-3 text-sm font-normal whitespace-nowrap text-gray-700 dark:text-gray-400">
                           Starter Plan
-                        </td>
-                        <td className="px-6 py-3">
+                    </TableCell>
+                        <TableCell className="px-6 py-3">
                           <span className="inline-flex items-center justify-center gap-1 rounded-full px-2.5 py-0.5 text-sm font-medium bg-success-50 text-success-600 dark:bg-success-500/15 dark:text-success-500">
                             Paid
                           </span>
-                        </td>
-                        <td className="px-6 py-3">
+                    </TableCell>
+                        <TableCell className="px-6 py-3">
                           <div className="flex justify-end gap-2">
                             <button className="shadow-theme-xs inline-flex h-9 w-9 items-center justify-center rounded-lg border border-gray-300 text-gray-500 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200">
                               <svg
@@ -147,11 +139,11 @@ export default function RefAmbulan() {
                               </svg>
                             </button>
                           </div>
-                        </td>
-                      </tr>
+                    </TableCell>
+                      </TableRow>
 
-                    </tbody>
-                  </table>
+                    </TableBody>
+                  </Table>
                 </div>
                 <div className="rounded-b-xl border-t border-gray-200 px-6 py-4 dark:border-gray-800">
                   <div className="flex justify-center">
