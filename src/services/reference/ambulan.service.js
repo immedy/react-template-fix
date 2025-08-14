@@ -26,6 +26,70 @@ const getTujuanAmbulan = async (token) => {
 };
 
 // Ekspor objek ambulanService yang berisi fungsi getTujuanAmbulan
+
+
+/**
+ * @param {string} token
+ * @returns {Promise<{success: boolean, data?: any, error?: string}>}
+ */
+
+const getTindakanJenazah = async (token) =>{
+    try {
+        const response = await axios.get(`${BASE_URL}getTindakanJenazah`,{
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return {
+            success:true,
+            data: response.data,
+        };
+    } catch (error){
+        console.error("Kesalahan Dalam Mengambil Data Ambulan", error);
+        return {
+            success: false,
+            error: error.response?.data?.message || "Gagal Mengambil data"
+        };
+    }
+};
+
+/**
+ * Mengambil Data tindakan Berdasarkan ID dari API
+ * @param {string} token - JWT token untuk autentikasi.
+ * @param {string} id - ID pasien yang ingin diambil.
+ * @returns {Promise<{ success: boolean, data?: any, error?: string }>}
+ */
+
+const getTindakanJenazahById = async (token, id) => {
+    try {
+        const response = await axios.get(`${BASE_URL}getTindakanJenazah/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        });
+        return {
+            success: true,
+            data: response.data,
+        };
+    } catch (error) {
+        console.error(`Error saat mengambil data tindakan jenazah dengan ID ${id}:`, error);
+        
+        if (error.response?.status === 404) {
+            return {
+                success: false,
+                error: "Data tidak ditemukan.",
+            };
+        }
+        
+        return {
+            success: false,
+            error: error.response?.data?.message || "Gagal mengambil data tindakan jenazah",
+        };
+    }
+};
+
 export const ambulanService = {
-    getTujuanAmbulan,
+    getTujuanAmbulan, 
+    getTindakanJenazah,
+    getTindakanJenazahById,
 };

@@ -8,20 +8,21 @@ import useAuth from "../../hooks/useAuth";
 export default function RefAmbulan() {
   const { user, isInitialized } = useAuth();
   const [dataTujuan, setDataTujuan] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Ambil token dari user atau sebagai cadangan dari localStorage
+  // State untuk melacak tombol yang aktif, di-default ke ambulan_id 1
+  const [activeButton, setActiveButton] = useState(1);
+
   const token = user?.token || localStorage.getItem("accessToken");
 
   useEffect(() => {
     const fetchTujuanAmbulan = async () => {
-      // Tunggu hingga AuthProvider selesai inisialisasi DAN token tersedia
       if (!isInitialized) {
         return;
       }
-      
-      // Jika inisialisasi selesai tapi token tidak ada, atur error
+
       if (!token) {
         setLoading(false);
         setError("Token tidak tersedia. Silakan login kembali.");
@@ -44,16 +45,20 @@ export default function RefAmbulan() {
     fetchTujuanAmbulan();
   }, [token, isInitialized]);
 
-  // Tampilkan loading saat inisialisasi atau pengambilan data
-  if (!isInitialized || loading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <p>Loading data...</p>
-      </div>
-    );
-  }
+  useEffect(() => {
+    // Lakukan filter setiap kali dataTujuan atau activeButton berubah
+    if (dataTujuan.length > 0) {
+      const filtered = dataTujuan.filter((item) => item.ambulan_id === activeButton);
+      setFilteredData(filtered);
+    } else {
+      setFilteredData([]);
+    }
+  }, [dataTujuan, activeButton]);
 
-  // Tampilkan error jika ada masalah
+  const handleButtonClick = (ambulanId) => {
+    setActiveButton(ambulanId);
+  };
+
   if (error) {
     return (
       <div className="flex justify-center items-center h-64">
@@ -69,11 +74,47 @@ export default function RefAmbulan() {
           <ComponentCard
             title="Tujuan Ambulan"
             headerRight={
-              <div className="hidden h-11 items-center gap-0.5 rounded-lg bg-gray-100 p-0.5 lg:inline-flex dark:bg-gray-900">
-                <button className="text-theme-sm h-10 rounded-md px-3 py-2 font-medium hover:text-gray-900 dark:hover:text-white shadow-theme-xs text-gray-900 dark:text-white bg-white dark:bg-gray-800">Ambulan Jenazah Dalam Provinsi</button>
-                <button className="text-theme-sm h-10 rounded-md px-3 py-2 font-medium hover:text-gray-900 dark:hover:text-white text-gray-500 dark:text-gray-400">Ambulan Jenazah Luar Provinsi</button>
-                <button className="text-theme-sm h-10 rounded-md px-3 py-2 font-medium hover:text-gray-900 dark:hover:text-white text-gray-500 dark:text-gray-400">Ambulan Antar Pasien Dalam Provinsi</button>
-                <button className="text-theme-sm h-10 rounded-md px-3 py-2 font-medium hover:text-gray-900 dark:hover:text-white text-gray-500 dark:text-gray-400">Ambulan Antar Pasien luar Provinsi</button>
+
+              <div className="flex items-center gap-4">
+                <div className="hidden h-11 items-center gap-0.5 rounded-lg bg-gray-100 p-0.5 lg:inline-flex dark:bg-gray-900">
+                  <button
+                    onClick={() => handleButtonClick(1)}
+                    className={`text-theme-sm h-10 rounded-md px-3 py-2 font-medium hover:text-gray-900 dark:hover:text-white ${activeButton === 1
+                        ? "shadow-theme-xs text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                        : "text-gray-500 dark:text-gray-400"
+                      }`}
+                  >
+                    Ambulan Jenazah Dalam Provinsi
+                  </button>
+                  <button
+                    onClick={() => handleButtonClick(2)}
+                    className={`text-theme-sm h-10 rounded-md px-3 py-2 font-medium hover:text-gray-900 dark:hover:text-white ${activeButton === 2
+                        ? "shadow-theme-xs text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                        : "text-gray-500 dark:text-gray-400"
+                      }`}
+                  >
+                    Ambulan Jenazah Luar Provinsi
+                  </button>
+                  <button
+                    onClick={() => handleButtonClick(3)}
+                    className={`text-theme-sm h-10 rounded-md px-3 py-2 font-medium hover:text-gray-900 dark:hover:text-white ${activeButton === 3
+                        ? "shadow-theme-xs text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                        : "text-gray-500 dark:text-gray-400"
+                      }`}
+                  >
+                    Ambulan Antar Pasien Dalam Provinsi
+                  </button>
+                  <button
+                    onClick={() => handleButtonClick(4)}
+                    className={`text-theme-sm h-10 rounded-md px-3 py-2 font-medium hover:text-gray-900 dark:hover:text-white ${activeButton === 4
+                        ? "shadow-theme-xs text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                        : "text-gray-500 dark:text-gray-400"
+                      }`}
+                  >
+                    Ambulan Antar Pasien luar Provinsi
+                  </button>
+                </div>
+
                 <div>
                   <Link to="/referensi-ambulan/addreferensiambulan"
                     className="shadow-theme-xs flex w-full justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200"
@@ -127,8 +168,8 @@ export default function RefAmbulan() {
                       </TableRow>
                     </TableHeader>
                     <TableBody className="divide-y divide-gray-200 dark:divide-gray-800">
-                      {dataTujuan.length > 0 ? (
-                        dataTujuan.map((item, index) => (
+                      {filteredData.length > 0 ? (
+                        filteredData.map((item, index) => (
                           <TableRow key={item.id}>
                             <TableCell className="px-6 py-3 text-sm font-normal whitespace-nowrap text-gray-700 dark:text-gray-400">
                               {index + 1}
@@ -144,31 +185,26 @@ export default function RefAmbulan() {
                               </div>
                             </TableCell>
                             <TableCell className="px-6 py-3 text-sm font-normal whitespace-nowrap text-gray-700 dark:text-gray-400">
-                                {item.bbm ? `Rp ${item.bbm.toLocaleString('id-ID')}` : '-'}
+                              {item.bbm ? `Rp ${item.bbm.toLocaleString('id-ID')}` : '-'}
                             </TableCell>
                             <TableCell className="px-6 py-3 text-sm font-normal whitespace-nowrap text-gray-700 dark:text-gray-400">
-                                {item.penyebrangan ? `Rp ${item.penyebrangan.toLocaleString('id-ID')}` : '-'}
+                              {item.penyebrangan ? `Rp ${item.penyebrangan.toLocaleString('id-ID')}` : '-'}
                             </TableCell>
                             <TableCell className="px-6 py-3 text-sm font-normal whitespace-nowrap text-gray-700 dark:text-gray-400">
-                                {item.uangmakan ? `Rp ${item.uangmakan.toLocaleString('id-ID')}` : '-'}
+                              {item.uangmakan ? `Rp ${item.uangmakan.toLocaleString('id-ID')}` : '-'}
                             </TableCell>
                             <TableCell className="px-6 py-3 text-sm font-normal whitespace-nowrap text-gray-700 dark:text-gray-400">
-                                {item.harga ? `Rp ${item.harga.toLocaleString('id-ID')}` : '-'}
+                              {item.harga ? `Rp ${item.harga.toLocaleString('id-ID')}` : '-'}
                             </TableCell>
                             <TableCell className="px-6 py-3">
                               <div className="flex justify-end gap-2">
-                                <button className="shadow-theme-xs inline-flex h-9 w-9 items-center justify-center rounded-lg border border-gray-300 text-gray-500 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200">
+                                <Link to="/referensi-ambulan/addreferensiambulan"
+                                  className="shadow-theme-xs inline-flex h-9 w-9 items-center justify-center rounded-lg border border-gray-300 text-gray-500 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200">
                                   <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">
-                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.636a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                    <path fillRule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.636a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                    <path fillRule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                                   </svg>
-                                </button>
-                                <button className="shadow-theme-xs inline-flex h-9 w-9 items-center justify-center rounded-lg border border-gray-300 text-gray-500 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
-                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                    <path fillRule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                                  </svg>
-                                </button>
+                                </Link>
                               </div>
                             </TableCell>
                           </TableRow>
@@ -183,6 +219,7 @@ export default function RefAmbulan() {
                     </TableBody>
                   </Table>
                 </div>
+                {/* Bagian pagination tidak berubah */}
                 <div className="rounded-b-xl border-t border-gray-200 px-6 py-4 dark:border-gray-800">
                   <div className="flex justify-center">
                     <div className="block pb-4 text-sm text-gray-700 sm:hidden dark:text-gray-400">

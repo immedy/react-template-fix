@@ -54,6 +54,7 @@ export default function App() {
             <Route path="/referensi-ambulan" element={<RefAmbulan/>} />
             <Route path="/referensi-ambulan/addreferensiambulan" element={<AddRefAmbulan/>} />
             <Route path="/referensi-jenazah/addreferensijenazah" element={<AddRefJenazah/>}/>
+            <Route path="/referensi-jenazah/addreferensijenazah/:id" element={<AddRefJenazah/>}/>
 
             <Route path="/referensi-jenazah" element={<RefJenazah/>}/>
           </Route>
