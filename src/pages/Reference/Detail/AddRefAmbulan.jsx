@@ -11,24 +11,7 @@ import Button from "../../../components/ui/button/Button";
 import { Link } from "react-router";
 
 export default function AddRefAmbulan() {
-    const { id } = useParams();
-    const navigate = useNavigate();
-    const { user, isInitialized } = useAuth();
-    const token = user?.token || localStorage.getItem("accessToken")
-    const [formData, setFormData] = useState({
-        bbm: '',
-        uangmakan: '',
-        penyebrangan: ''
-    });
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    useEffect(() =>{
-        if (!id){
-            return;
-        }
-        const
-    });
-   
+       
     return (
         <div className="grid grid-cols-12 gap-4 md:gap-6">
             <div className="col-span-12">
