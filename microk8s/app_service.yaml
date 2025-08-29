@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ambulance-app
+spec:
+  selector:
+    app: ambulance-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+  # LoadBalancerIp: 192.168.10.55

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ambulance-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ambulance-app
+  template:
+    metadata:
+      labels:
+        app: ambulance-app
+    spec:
+      containers:
+      - name: ambulance-app-container
+        image: localhost:32000/ambulance-app:latest
+        ports:
+        - containerPort: 80
