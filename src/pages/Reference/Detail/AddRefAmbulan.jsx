@@ -1,19 +1,34 @@
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router";
+import useAuth from "../../../hooks/useAuth";
+import { ambulanService } from "../../../services/reference/ambulan.service";
+import { toast } from "react-toastify";
 import ComponentCard from "../../../components/common/ComponentCard";
 import Label from "../../../components/form/Label";
 import Input from "../../../components/form/input/InputField";
 import SelectField from "../../../components/form/SelectField"
 import Button from "../../../components/ui/button/Button";
-import DatePicker from "../../../components/form/date-picker";
-import { EyeCloseIcon, EyeIcon, TimeIcon } from "../../../icons";
 import { Link } from "react-router";
 
-
 export default function AddRefAmbulan() {
-    const options = [
-        { value: "marketing", label: "Marketing" },
-        { value: "template", label: "Template" },
-        { value: "development", label: "Development" },
-    ];
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const { user, isInitialized } = useAuth();
+    const token = user?.token || localStorage.getItem("accessToken")
+    const [formData, setFormData] = useState({
+        bbm: '',
+        uangmakan: '',
+        penyebrangan: ''
+    });
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    useEffect(() =>{
+        if (!id){
+            return;
+        }
+        const
+    });
+   
     return (
         <div className="grid grid-cols-12 gap-4 md:gap-6">
             <div className="col-span-12">

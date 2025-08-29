@@ -80,8 +80,8 @@ export default function RefAmbulan() {
                   <button
                     onClick={() => handleButtonClick(1)}
                     className={`text-theme-sm h-10 rounded-md px-3 py-2 font-medium hover:text-gray-900 dark:hover:text-white ${activeButton === 1
-                        ? "shadow-theme-xs text-gray-900 dark:text-white bg-white dark:bg-gray-800"
-                        : "text-gray-500 dark:text-gray-400"
+                      ? "shadow-theme-xs text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                      : "text-gray-500 dark:text-gray-400"
                       }`}
                   >
                     Ambulan Jenazah Dalam Provinsi
@@ -89,8 +89,8 @@ export default function RefAmbulan() {
                   <button
                     onClick={() => handleButtonClick(2)}
                     className={`text-theme-sm h-10 rounded-md px-3 py-2 font-medium hover:text-gray-900 dark:hover:text-white ${activeButton === 2
-                        ? "shadow-theme-xs text-gray-900 dark:text-white bg-white dark:bg-gray-800"
-                        : "text-gray-500 dark:text-gray-400"
+                      ? "shadow-theme-xs text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                      : "text-gray-500 dark:text-gray-400"
                       }`}
                   >
                     Ambulan Jenazah Luar Provinsi
@@ -98,8 +98,8 @@ export default function RefAmbulan() {
                   <button
                     onClick={() => handleButtonClick(3)}
                     className={`text-theme-sm h-10 rounded-md px-3 py-2 font-medium hover:text-gray-900 dark:hover:text-white ${activeButton === 3
-                        ? "shadow-theme-xs text-gray-900 dark:text-white bg-white dark:bg-gray-800"
-                        : "text-gray-500 dark:text-gray-400"
+                      ? "shadow-theme-xs text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                      : "text-gray-500 dark:text-gray-400"
                       }`}
                   >
                     Ambulan Antar Pasien Dalam Provinsi
@@ -107,8 +107,8 @@ export default function RefAmbulan() {
                   <button
                     onClick={() => handleButtonClick(4)}
                     className={`text-theme-sm h-10 rounded-md px-3 py-2 font-medium hover:text-gray-900 dark:hover:text-white ${activeButton === 4
-                        ? "shadow-theme-xs text-gray-900 dark:text-white bg-white dark:bg-gray-800"
-                        : "text-gray-500 dark:text-gray-400"
+                      ? "shadow-theme-xs text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                      : "text-gray-500 dark:text-gray-400"
                       }`}
                   >
                     Ambulan Antar Pasien luar Provinsi
@@ -198,7 +198,7 @@ export default function RefAmbulan() {
                             </TableCell>
                             <TableCell className="px-6 py-3">
                               <div className="flex justify-end gap-2">
-                                <Link to="/referensi-ambulan/addreferensiambulan"
+                                <Link to={`/referensi-ambulan/addreferensiambulan/${item.encrypted_id}`}
                                   className="shadow-theme-xs inline-flex h-9 w-9 items-center justify-center rounded-lg border border-gray-300 text-gray-500 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200">
                                   <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">
                                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.636a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />

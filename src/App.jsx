@@ -53,6 +53,7 @@ export default function App() {
             <Route path="/bar-chart" element={<BarChart />} />
             <Route path="/referensi-ambulan" element={<RefAmbulan/>} />
             <Route path="/referensi-ambulan/addreferensiambulan" element={<AddRefAmbulan/>} />
+             <Route path="/referensi-ambulan/addreferensiambulan/:id" element={<AddRefAmbulan/>} />
             <Route path="/referensi-jenazah/addreferensijenazah" element={<AddRefJenazah/>}/>
             <Route path="/referensi-jenazah/addreferensijenazah/:id" element={<AddRefJenazah/>}/>
 

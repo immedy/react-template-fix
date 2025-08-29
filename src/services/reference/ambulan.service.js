@@ -1,4 +1,5 @@
 import axios from "axios";
+import { data } from "react-router";
 const BASE_URL = import.meta.env.VITE_API_URL;
 
 /**
@@ -27,6 +28,36 @@ const getTujuanAmbulan = async (token) => {
 
 // Ekspor objek ambulanService yang berisi fungsi getTujuanAmbulan
 
+/**
+ * @param {string} token
+ * @param {string} id
+ * @returns {Promise<{success: boolean, data?: any, error?: string}>}
+ */
+const getTujuanAmbulanById = async (token, id) => {
+    try {
+        const response = await axios.get(`${BASE_URL}ambulance/getTujuanAmbulan/${id}`,{
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        });
+        return {
+            success: true,
+            data: response.data
+        };
+    } catch (error){
+        console.error (`Error Saat Ambil Data ${id}:`, error);
+        if (error.response?.status === 400){
+            return {
+                success: false,
+                error: "Data Tidak Ditemukan",
+            };
+        }
+        return {
+            success: false,
+            error: error.response?.data?.message || "Gagal Mengambil Data"
+        };
+    }
+};
 
 /**
  * @param {string} token
@@ -88,8 +119,34 @@ const getTindakanJenazahById = async (token, id) => {
     }
 };
 
+/**
+ * @param {string} token
+ * @param {object} formData
+ * @returns {object}
+ */
+const upsertTindakanJenazah= async (token, formData) =>{
+    try{
+        const response = await axios.post(`${BASE_URL}createTindakanJenazah`, formData,{
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        });
+        return {
+            success: true,
+            data: response.data,
+        };
+    } catch (error){
+        console.error(`Error Saat Patch Data`, error);
+        return {
+            success: false,
+            error: error.response?.data?.message || "Gagal Simpan Data",
+        };
+    }
+}
+
 export const ambulanService = {
     getTujuanAmbulan, 
     getTindakanJenazah,
     getTindakanJenazahById,
+    upsertTindakanJenazah,
 };
