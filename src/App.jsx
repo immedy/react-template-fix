@@ -18,7 +18,6 @@ import AppLayout from "./layout/AppLayout";
 import { ScrollToTop } from "./components/common/ScrollToTop";
 import Home from "./pages/Dashboard/Home";
 import useAuth from "./hooks/useAuth";
-import Pasien from "./pages/Dashboard/detail/Pasien";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
@@ -48,7 +47,7 @@ export default function App() {
             }
           >
             <Route index path="/" element={<Home />} />
-            <Route index path="/dashboard/pasien" element={<Pasien/>} />
+           
             <Route path="/line-chart" element={<LineChart />} />
             <Route path="/bar-chart" element={<BarChart />} />
             <Route path="/referensi-ambulan" element={<RefAmbulan/>} />

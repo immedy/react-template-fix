@@ -7,7 +7,6 @@ import App from "./App";
 import { AppWrapper } from "./components/common/PageMeta";
 import { ThemeProvider } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
-import { DataProvider } from "./context/DataContext";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -17,11 +16,9 @@ if (rootElement) {
     <StrictMode>
       <ThemeProvider>
         <AuthProvider>
-          <DataProvider>
             <AppWrapper>
               <App />
             </AppWrapper>
-          </DataProvider>
         </AuthProvider>
       </ThemeProvider>
       <ToastContainer
