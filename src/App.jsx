@@ -17,6 +17,7 @@ import AddRefJenazah from "./pages/Reference/Detail/AddRefJenazah";
 import AppLayout from "./layout/AppLayout";
 import { ScrollToTop } from "./components/common/ScrollToTop";
 import Home from "./pages/Dashboard/Home";
+import Analisis from "./pages/Dashboard/Analisis";
 import useAuth from "./hooks/useAuth";
 
 const ProtectedRoute = ({ children }) => {
@@ -47,6 +48,7 @@ export default function App() {
             }
           >
             <Route index path="/" element={<Home />} />
+            <Route path="/Analisis" element={<Analisis />}/>
            
             <Route path="/line-chart" element={<LineChart />} />
             <Route path="/bar-chart" element={<BarChart />} />

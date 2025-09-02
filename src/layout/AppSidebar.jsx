@@ -24,6 +24,11 @@ const navItems = [
     name: "Dashboard",
     path: "/"
   },
+  {
+    icon: <UserCircleIcon />,
+    name: "Analisis",
+    path: "/Analisis",
+  },
 ]
 
 const othersItems = [

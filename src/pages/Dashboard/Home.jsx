@@ -11,8 +11,8 @@ export default function Home() {
           <ComponentCard
             title="Dashboard"
             headerRight={
-              <Link to= "/dashboard/pasien"
-                
+              <Link to="/dashboard/pasien"
+
                 className="group relative shadow-theme-xs inline-flex h-9 w-9 items-center justify-center rounded-lg border border-gray-300 text-gray-500 hover:bg-blue-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-blue/[0.03] dark:hover:text-gray-200"
               >
                 <svg
